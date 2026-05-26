@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Análise de Vendas Simplificada</title>
+</head>
+<body>
+
+    <h1>Carrinho de Compras</h1>
+    <hr>
+
+    <h3>Produto 1</h3>
+    <label for="nomeProd1">Nome do Produto:</label>
+    <input type="text" id="nomeProd1" value="Produto A"><br><br>
+    <label for="precoProd1">Preço (R$):</label>
+    <input type="number" id="precoProd1" value="0.00" step="0.01"><br>
+
+    <hr>
+
+    <h3>Produto 2</h3>
+    <label for="nomeProd2">Nome do Produto:</label>
+    <input type="text" id="nomeProd2" value="Produto B"><br><br>
+    <label for="precoProd2">Preço (R$):</label>
+    <input type="number" id="precoProd2" value="0.00" step="0.01"><br>
+
+    <hr>
+
+    <h3>Opções de Pagamento</h3>
+    <label for="numParcelas">Parcelar em até 10x:</label>
+    <select id="numParcelas">
+        <option value="1">1x (À vista)</option>
+        <option value="2">2x</option>
+        <option value="3">3x</option>
+        <option value="4">4x</option>
+        <option value="5">5x</option>
+        <option value="6">6x</option>
+        <option value="7">7x</option>
+        <option value="8">8x</option>
+        <option value="9">9x</option>
+        <option value="10">10x</option>
+    </select>
+    <br><br>
+
+    <button type="button" onclick="calcularCompra()">Calcular Total</button>
+
+    <hr>
+
+    <h3>Resumo do Pedido</h3>
+    
+    <p><strong>Valor Total Original:</strong> R$ <span id="resultadoTotal">0.00</span></p>
+    <p><strong>Desconto (10%):</strong> R$ <span id="resultadoDesconto">0.00</span></p>
+    <p><strong>Valor Total com Desconto (À vista):</strong> R$ <span id="resultadoComDesconto">0.00</span></p>
+    <p><strong>Plano de Parcelamento Escolhido:</strong> <span id="resultadoParcelas">Nenhum</span></p>
+
+    <script>
+        function calcularCompra() {
+            // Obter os valores dos inputs de preço
+            const preco1 = parseFloat(document.getElementById('precoProd1').value) || 0;
+            const preco2 = parseFloat(document.getElementById('precoProd2').value) || 0;
+            
+            // Obter o número de parcelas selecionado
+            const parcelas = parseInt(document.getElementById('numParcelas').value);
+
+            // Cálculos
+            const valorTotal = preco1 + preco2;
+            const valorDesconto = valorTotal * 0.10;
+            const valorComDesconto = valorTotal - valorDesconto;
+            const valorDaParcela = valorTotal / parcelas;
+
+            // Injetar os resultados na tela
+            document.getElementById('resultadoTotal').innerText = valorTotal.toFixed(2);
+            document.getElementById('resultadoDesconto').innerText = valorDesconto.toFixed(2);
+            document.getElementById('resultadoComDesconto').innerText = valorComDesconto.toFixed(2);
+            
+            // Mostrar o valor detalhado das parcelas
+            document.getElementById('resultadoParcelas').innerText = parcelas + "x de R$ " + valorDaParcela.toFixed(2) + " (sem desconto)";
+        }
+    </script>
+
+</body>
+</html>
